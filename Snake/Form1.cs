@@ -80,6 +80,7 @@ namespace Snake
             snake.Size = new Size(SIZE_SNAKE, SIZE_SNAKE);
             food.Size = new Size(SIZE_FOOD, SIZE_FOOD);
 
+            // Gör så att mat inte kan spawna inuti spelaren
             do
             {
                 food.Location = new Point(rng.Next(0, ClientSize.Width - SIZE_FOOD), rng.Next(0, ClientSize.Height - SIZE_FOOD));
@@ -106,6 +107,11 @@ namespace Snake
             else if (e.KeyChar == 's' && direction != "up")
             {
                 direction = "down";
+            }
+            else if (e.KeyChar == ' ' && !timer1.Enabled)
+            {
+                // Startar om spelet om du trycker på space efter att ha förlorat
+                Application.Restart();
             }
         }
 
@@ -134,6 +140,7 @@ namespace Snake
             {
                 timer1.Stop();
                 MessageBox.Show("You Lost!");
+                label2.Visible = true;
             }
 
             if (snake.Bounds.IntersectsWith(food.Bounds))

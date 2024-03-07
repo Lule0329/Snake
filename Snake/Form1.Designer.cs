@@ -33,6 +33,7 @@
             this.food = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.snake)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.food)).BeginInit();
             this.SuspendLayout();
@@ -68,11 +69,23 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Score: 0";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Stencil", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(118, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(533, 47);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Press Space To Restart";
+            this.label2.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.food);
             this.Controls.Add(this.snake);
@@ -85,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.snake)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.food)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -94,6 +108,7 @@
         private System.Windows.Forms.PictureBox food;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
