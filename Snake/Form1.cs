@@ -27,20 +27,21 @@ namespace Snake
             InitializeComponent();
         }
 
-        //bool IsIntersectingWith()
-        //{
-          //  for (int i = 0; i < tailpieces.Count; i++)
-            //{
-                // Kollar om varje tailPiece kolliderar med ormen
-              //  if (tailpieces[i].Bounds.IntersectsWith(snake.Bounds)) 
-                //{
-                  //  return true;
-                //} 
-            //}
+        bool IsIntersectingWith()
+        {
+            for (int i = 0; i < tailpieces.Count; i++)
+            {
+                // Om den nuvarande delen av svansen krockar med ormens huvud
+                if (tailpieces[i].Bounds.IntersectsWith(snake.Bounds))
+                {
+                    // Sätt funktionens värde till true och avsluta funktionen
+                    return true;
+                }
+            }
 
             // sätter funktionens värde till false om ingen av delarna kolliderar
-            //return false;
-        //}
+            return false;
+        }
 
         void addTail()
         {
@@ -79,25 +80,30 @@ namespace Snake
             snake.Size = new Size(SIZE_SNAKE, SIZE_SNAKE);
             food.Size = new Size(SIZE_FOOD, SIZE_FOOD);
 
-            food.Location = new Point(rng.Next(0, ClientSize.Width - SIZE_FOOD), rng.Next(0, ClientSize.Height - SIZE_FOOD));
+            do
+            {
+                food.Location = new Point(rng.Next(0, ClientSize.Width - SIZE_FOOD), rng.Next(0, ClientSize.Height - SIZE_FOOD));
+            } while (food.Location == snake.Location);
+            
             snake.Location = new Point(0, 0);
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 'a')
+            // Kollar vart spelaren vill och hindrar spelaren från att åka baklänges
+            if (e.KeyChar == 'a' && direction != "right")
             {
                 direction = "left";
             }
-            else if (e.KeyChar == 'd')
+            else if (e.KeyChar == 'd' && direction != "left")
             {
                 direction = "right";
             }
-            else if (e.KeyChar == 'w')
+            else if (e.KeyChar == 'w' && direction != "down")
             {
                 direction = "up";
             }
-            else if (e.KeyChar == 's')
+            else if (e.KeyChar == 's' && direction != "up")
             {
                 direction = "down";
             }
@@ -122,6 +128,12 @@ namespace Snake
             else if (direction == "down")
             {
                 snake.Top += SIZE_SNAKE;
+            }
+
+            if (IsIntersectingWith() == true)
+            {
+                timer1.Stop();
+                MessageBox.Show("You Lost!");
             }
 
             if (snake.Bounds.IntersectsWith(food.Bounds))
@@ -168,12 +180,6 @@ namespace Snake
             {
                 snake.Top = 0;
             }
-
-            //if (IsIntersectingWith() == true)
-            //{
-            //  timer1.Stop();
-            //  MessageBox.Show("You Lost!");
-            //}
         }
     }
 }
