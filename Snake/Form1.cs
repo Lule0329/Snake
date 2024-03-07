@@ -27,6 +27,21 @@ namespace Snake
             InitializeComponent();
         }
 
+        bool IsIntersectingWith()
+        {
+            for (int i = 0; i < tailpieces.Count; i++)
+            {
+                // Kollar om varje tailPiece kolliderar med ormen
+                if (tailpieces[i].Bounds.IntersectsWith(snake.Bounds)) 
+                {
+                    return true;
+                } 
+            }
+
+            // sätter funktionens värde till false om ingen av delarna kolliderar
+            return false;
+        }
+
         void addTail()
         {
             // Skapa en ny pictureBox
@@ -117,7 +132,7 @@ namespace Snake
                 label1.Text = "Score: " + score;
             }
             
-            if (snake.Bounds.IntersectsWith(tailpieces.Bounds))
+            if (IsIntersectingWith() == true)
             {
                 timer1.Stop();
                 MessageBox.Show("You Lost!");
