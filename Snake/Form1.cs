@@ -27,20 +27,20 @@ namespace Snake
             InitializeComponent();
         }
 
-        bool IsIntersectingWith()
-        {
-            for (int i = 0; i < tailpieces.Count; i++)
-            {
+        //bool IsIntersectingWith()
+        //{
+          //  for (int i = 0; i < tailpieces.Count; i++)
+            //{
                 // Kollar om varje tailPiece kolliderar med ormen
-                if (tailpieces[i].Bounds.IntersectsWith(snake.Bounds)) 
-                {
-                    return true;
-                } 
-            }
+              //  if (tailpieces[i].Bounds.IntersectsWith(snake.Bounds)) 
+                //{
+                  //  return true;
+                //} 
+            //}
 
             // sätter funktionens värde till false om ingen av delarna kolliderar
-            return false;
-        }
+            //return false;
+        //}
 
         void addTail()
         {
@@ -132,11 +132,48 @@ namespace Snake
                 label1.Text = "Score: " + score;
             }
             
-            if (IsIntersectingWith() == true)
+            // ändrar hastighet beroende på hur många poäng man har
+            if (score >= 10)
             {
-                timer1.Stop();
-                MessageBox.Show("You Lost!");
+                timer1.Interval = 85;
             }
+            else if (score >= 20)
+            {
+                timer1.Interval = 70;
+            }
+            else if (score >= 30)
+            {
+                timer1.Interval = 50;
+            }
+            else if (score >= 40)
+            {
+                timer1.Interval = 25;
+            }
+
+            if (snake.Left < 0)
+            {
+                snake.Left = ClientSize.Width - snake.Width;
+            }
+            else if (snake.Left > ClientSize.Width - snake.Width)
+            {
+                snake.Left = 0;
+            }
+                
+
+            if (snake.Top < 0)
+            {
+                snake.Top = ClientSize.Height - snake.Height;
+            }   
+            else if (snake.Top > ClientSize.Height - snake.Height)
+            {
+                snake.Top = 0;
+            }
+
+            //if (IsIntersectingWith() == true)
+            //{
+            //  timer1.Stop();
+            //  MessageBox.Show("You Lost!");
+            //}
         }
     }
 }
